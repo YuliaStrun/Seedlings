@@ -15,7 +15,7 @@ const styles = {
 export const Button = (props) => {
     return (
         <button style={{...styles.button, ...props.style}} onClick={props.onClick}>
-            {props.data}
+            {props.children}
         </button>
     )
 }

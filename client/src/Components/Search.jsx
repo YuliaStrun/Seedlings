@@ -11,10 +11,10 @@ const styles = {
         border: '1px solid rgb(90, 96, 100)',
         borderStyle: 'solid',
         borderColor: 'rgb(90, 96, 100)',
-        borderRadius: '0',
         paddingRight: '40px',
         paddingLeft: '20px',
         height: '55px',
+        borderRadius: '5px',
       },
       button: {
         position: 'absolute',
@@ -26,7 +26,7 @@ export const Search = () => {
     return (
         <div style={styles.block}>
             <input data-search-quick="" placeholder="Search" maxLength="128" style={styles.search}/>
-            <Button data={<SearchSVG/>} style={styles.button} />
+            <Button children={<SearchSVG/>} style={styles.button} />
         </div>
     )
 }

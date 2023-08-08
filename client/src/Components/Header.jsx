@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import { Search } from './Search'
 import { Button } from './Button'
+import { NavigationBar } from './NavigationBar'
 import Logo from '../assets/logo'
 import UserSVG from '../assets/userSVG'
 import CartSVG from '../assets/cartSVG'
 import SearchSVG from '../assets/searchSVG'
 import HamburgerSVG from '../assets/hamburgerSVG'
-import { useResize } from '../hooks/useResize';
+import { useResize } from '../hooks/useResize'
 
 const styles = {
     header: {
@@ -31,61 +32,68 @@ const styles = {
     },
     logo: {
         paddingRight: '20px' 
-    }, 
-    menu: {
-        backgroundColor: 'white',
-        width: '100px',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        position: 'absolute',
-    } 
+    },
 }
 
 export const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    let size = useResize();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
     return (
         <>
             <header style={styles.header}>
-                {useResize() === 'normal' ?
+                {size === 'normal' ?
                     <>
                         <div style={styles.div}>
                             <Logo style={styles.logo} />
-                            <Button data={<p>Plants</p>} style={styles.text} />
-                            <Button data={<p>Seeds</p>} style={styles.text} />
-                            <Button data={<p>About us</p>} style={styles.text} />
+                            <Button style={styles.text} >
+                                <p>Plants</p>
+                            </Button>
+                            <Button style={styles.text} >
+                                <p>Seeds</p>
+                            </Button>
+                            <Button style={styles.text}>
+                                <p>About us</p>
+                            </Button>
                         </div>
                         <div style={styles.div}>
                             <Search />
-                            <Button data={<UserSVG />} />
-                            <Button data={<CartSVG />} />
+                            <Button >
+                                <UserSVG />
+                            </Button>
+                            <Button >
+                                <CartSVG />
+                            </Button>
                         </div>
                     </>
                     : 
                     <>
                     <div style={styles.div}>
-                            <Button data={<HamburgerSVG />} onClick={toggleMenu}/>
+                            <Button onClick={toggleMenu}>
+                                <HamburgerSVG />
+                            </Button>
                             <Logo style={styles.logo} />
                         </div>
                         <div style={styles.div}>
-                            <Button data={<SearchSVG />} />
-                            <Button data={<UserSVG />} />
-                            <Button data={<CartSVG />} />
+                            <Button onClick={toggleMenu}>
+                                <SearchSVG />
+                            </Button>
+                            <Button >
+                                <UserSVG />
+                            </Button> 
+                            <Button >
+                                <CartSVG />
+                            </Button> 
                         </div>
                     </>
                 }
             </header>
-            {isMenuOpen && (
-                <div className="menu">
-                    <Button data={<p>Plants</p>} style={{ ...styles.text, ...styles.button }} />
-                    <Button data={<p>Seeds</p>} style={{ ...styles.text, ...styles.button }} />
-                    <Button data={<p>About us</p>} style={{ ...styles.text, ...styles.button }} />
-                </div>
+            {isMenuOpen && size === 'small' && (
+                 <NavigationBar toggleMenu={toggleMenu} />
             )}
         </>
     )
